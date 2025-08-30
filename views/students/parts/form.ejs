@@ -1,0 +1,129 @@
+<div class="row g-3">
+  <div class="col-md-6">
+    <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="name" 
+      name="name" 
+      value="<%= values.name || '' %>" 
+      required
+      minlength="2"
+      maxlength="100"
+      placeholder="Enter full name"
+    >
+  </div>
+  
+  <div class="col-md-6">
+    <label for="rollNumber" class="form-label">Roll Number <span class="text-danger">*</span></label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="rollNumber" 
+      name="rollNumber" 
+      value="<%= values.rollNumber || '' %>" 
+      required
+      pattern="[a-zA-Z0-9-]+"
+      placeholder="Enter roll number"
+    >
+    <div class="form-text">Alphanumeric characters and hyphens only</div>
+  </div>
+  
+  <div class="col-md-6">
+    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+    <input 
+      type="email" 
+      class="form-control" 
+      id="email" 
+      name="email" 
+      value="<%= values.email || '' %>" 
+      required
+      placeholder="Enter email address"
+    >
+  </div>
+  
+  <div class="col-md-6">
+    <label for="department" class="form-label">Department <span class="text-danger">*</span></label>
+    <select class="form-select" id="department" name="department" required onchange="handleDepartmentChange()">
+      <option value="">Select Department</option>
+      <option value="Computer Science" <%= values.department === 'Computer Science' ? 'selected' : '' %>>Computer Science</option>
+      <option value="Electrical Engineering" <%= values.department === 'Electrical Engineering' ? 'selected' : '' %>>Electrical Engineering</option>
+      <option value="Mechanical Engineering" <%= values.department === 'Mechanical Engineering' ? 'selected' : '' %>>Mechanical Engineering</option>
+      <option value="Civil Engineering" <%= values.department === 'Civil Engineering' ? 'selected' : '' %>>Civil Engineering</option>
+      <option value="Chemical Engineering" <%= values.department === 'Chemical Engineering' ? 'selected' : '' %>>Chemical Engineering</option>
+      <option value="Mathematics" <%= values.department === 'Mathematics' ? 'selected' : '' %>>Mathematics</option>
+      <option value="Physics" <%= values.department === 'Physics' ? 'selected' : '' %>>Physics</option>
+      <option value="Chemistry" <%= values.department === 'Chemistry' ? 'selected' : '' %>>Chemistry</option>
+      <option value="Biology" <%= values.department === 'Biology' ? 'selected' : '' %>>Biology</option>
+      <option value="Business Administration" <%= values.department === 'Business Administration' ? 'selected' : '' %>>Business Administration</option>
+      <option value="Economics" <%= values.department === 'Economics' ? 'selected' : '' %>>Economics</option>
+      <option value="Psychology" <%= values.department === 'Psychology' ? 'selected' : '' %>>Psychology</option>
+      <option value="English" <%= values.department === 'English' ? 'selected' : '' %>>English</option>
+      <option value="History" <%= values.department === 'History' ? 'selected' : '' %>>History</option>
+      <option value="Other" <%= values.department === 'Other' ? 'selected' : '' %>>Other</option>
+      <option value="custom" <%= !['Computer Science', 'Electrical Engineering', 'Mechanical Engineering', 'Civil Engineering', 'Chemical Engineering', 'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Business Administration', 'Economics', 'Psychology', 'English', 'History', 'Other'].includes(values.department) && values.department ? 'selected' : '' %>>Custom Department</option>
+    </select>
+  </div>
+  
+  <div class="col-md-6" id="customDepartmentDiv" style="display: <%= !['Computer Science', 'Electrical Engineering', 'Mechanical Engineering', 'Civil Engineering', 'Chemical Engineering', 'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Business Administration', 'Economics', 'Psychology', 'English', 'History', 'Other'].includes(values.department) && values.department ? 'block' : 'none' %>;">
+    <label for="customDepartment" class="form-label">Custom Department Name <span class="text-danger">*</span></label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="customDepartment" 
+      name="customDepartment" 
+      value="<%= !['Computer Science', 'Electrical Engineering', 'Mechanical Engineering', 'Civil Engineering', 'Chemical Engineering', 'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Business Administration', 'Economics', 'Psychology', 'English', 'History', 'Other'].includes(values.department) && values.department ? values.department : '' %>" 
+      placeholder="Enter custom department name"
+      maxlength="100"
+    >
+    <div class="form-text">Enter your specific department name</div>
+  </div>
+  
+  <div class="col-md-6">
+    <label for="gpa" class="form-label">GPA <span class="text-danger">*</span></label>
+    <input 
+      type="number" 
+      class="form-control" 
+      id="gpa" 
+      name="gpa" 
+      value="<%= values.gpa || '' %>" 
+      required
+      min="0"
+      max="4"
+      step="0.01"
+      placeholder="Enter GPA (0.0 - 4.0)"
+    >
+    <div class="form-text">GPA must be between 0.0 and 4.0</div>
+  </div>
+</div>
+
+<script>
+function handleDepartmentChange() {
+  const departmentSelect = document.getElementById('department');
+  const customDepartmentDiv = document.getElementById('customDepartmentDiv');
+  const customDepartmentInput = document.getElementById('customDepartment');
+  
+  if (departmentSelect.value === 'custom') {
+    customDepartmentDiv.style.display = 'block';
+    customDepartmentInput.required = true;
+    customDepartmentInput.focus();
+  } else {
+    customDepartmentDiv.style.display = 'none';
+    customDepartmentInput.required = false;
+    customDepartmentInput.value = '';
+  }
+}
+
+// Set initial state when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  const departmentSelect = document.getElementById('department');
+  const customDepartmentDiv = document.getElementById('customDepartmentDiv');
+  const customDepartmentInput = document.getElementById('customDepartment');
+  
+  // Check if current department is custom
+  if (departmentSelect.value === 'custom' || (!['Computer Science', 'Electrical Engineering', 'Mechanical Engineering', 'Civil Engineering', 'Chemical Engineering', 'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Business Administration', 'Economics', 'Psychology', 'English', 'History', 'Other'].includes(departmentSelect.value) && departmentSelect.value)) {
+    customDepartmentDiv.style.display = 'block';
+    customDepartmentInput.required = true;
+  }
+});
+</script>

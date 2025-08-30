@@ -1,0 +1,136 @@
+<% if (typeof flashMsg !== 'undefined' && flashMsg) { %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flashMsg %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+<!-- Hero Section -->
+<div class="hero-section text-center py-4 mb-4">
+  <div class="container">
+    <h1 class="h2 fw-bold mb-3 text-gradient">Student Management System</h1>
+    <p class="fs-6 text-muted mb-3">Streamline your academic administration with our comprehensive student management solution</p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a href="/students" class="btn btn-primary px-4">
+        <i class="bi bi-people me-2"></i>Manage Students
+      </a>
+      <a href="/students/new" class="btn btn-primary px-4">
+        <i class="bi bi-person-plus me-2"></i>Add Student
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-4 mb-4">
+  <div class="col-lg-4 col-md-6">
+    <div class="stat-card text-center p-3">
+      <div class="stat-icon mb-2">
+        <i class="bi bi-people-fill text-primary"></i>
+      </div>
+      <h4 class="stat-number fw-bold mb-2"><%= typeof total !== 'undefined' ? total : 0 %></h4>
+      <p class="stat-label text-muted mb-0">Total Students</p>
+    </div>
+  </div>
+  
+  <div class="col-lg-4 col-md-6">
+    <div class="stat-card text-center p-3">
+      <div class="stat-icon mb-2">
+        <i class="bi bi-graph-up text-success"></i>
+      </div>
+      <h4 class="stat-number fw-bold mb-2">
+        <%= typeof avgGpa !== 'undefined' && avgGpa !== null ? avgGpa : 'N/A' %>
+      </h4>
+      <p class="stat-label text-muted mb-0">Average GPA</p>
+    </div>
+  </div>
+  
+  <div class="col-lg-4 col-md-6">
+    <div class="stat-card text-center p-3">
+      <div class="stat-icon mb-2">
+        <i class="bi bi-building text-info"></i>
+      </div>
+      <h4 class="stat-number fw-bold mb-2">
+        <%= topDepartments && topDepartments.length ? topDepartments.length : 0 %>
+      </h4>
+      <p class="stat-label text-muted mb-0">Active Departments</p>
+    </div>
+  </div>
+</div>
+
+<!-- Department Overview -->
+<div class="row justify-content-center mb-4">
+  <div class="col-lg-8">
+    <div class="department-card">
+      <div class="card-header-custom">
+        <h5 class="card-title mb-0">
+          <i class="bi bi-building me-2"></i>Top Departments
+        </h5>
+      </div>
+      <div class="card-body-custom">
+        <% if (topDepartments && topDepartments.length) { %>
+          <div class="department-list">
+            <% topDepartments.forEach(function(dept, index) { %>
+              <div class="department-item d-flex justify-content-between align-items-center py-2">
+                <div class="d-flex align-items-center">
+                  <span class="department-rank me-3 fw-bold text-muted">#<%= index + 1 %></span>
+                  <span class="department-name"><%= dept.name %></span>
+                </div>
+                <span class="department-count badge bg-primary rounded-pill"><%= dept.count %></span>
+              </div>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <div class="text-center py-3">
+            <i class="bi bi-inbox text-muted h3"></i>
+            <p class="text-muted mt-2 mb-0 small">No department data available yet.</p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row justify-content-center">
+  <div class="col-lg-10">
+    <div class="quick-actions-card">
+      <div class="card-header-custom">
+        <h5 class="card-title mb-0">
+          <i class="bi bi-lightning me-2"></i>Quick Actions
+        </h5>
+      </div>
+      <div class="card-body-custom">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <a href="/students" class="quick-action-link">
+              <div class="quick-action-item text-center p-3">
+                <i class="bi bi-list-ul text-primary mb-2"></i>
+                <h6 class="mb-1">View All Students</h6>
+                <p class="text-muted small mb-0">Browse and search student records</p>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="/students/new" class="quick-action-link">
+              <div class="quick-action-item text-center p-3">
+                <i class="bi bi-person-plus text-success mb-2"></i>
+                <h6 class="mb-1">Add New Student</h6>
+                <p class="text-muted small mb-0">Create new student profiles</p>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="/signup" class="quick-action-link">
+              <div class="quick-action-item text-center p-3">
+                <i class="bi bi-shield-check text-warning mb-2"></i>
+                <h6 class="mb-1">Create Account</h6>
+                <p class="text-muted small mb-0">Join the management system</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
